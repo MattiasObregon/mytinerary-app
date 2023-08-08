@@ -42,7 +42,13 @@ export default function Carousel({data}) {
           <Arrow direction="M15.75 19.5L8.25 12l7.5-7.5" onClick={prev_slide}/>
             <div className="md:w-1/2 flex flex-col justify-center items-center ml-4">
               <div className="flex flex-wrap gap-3">
-                {data.slice(counter, counterTo).map((item) => (<CardPolaroid key={item.id} item={item} /> ))}
+                {data.slice(counter, counterTo).map((item) => (
+                <CardPolaroid 
+                    key={item.id}
+                    item={item}
+                    id={item.id} 
+                /> 
+                ))}
               </div>
             </div>
           <Arrow direction="M8.25 4.5l7.5 7.5-7.5 7.5" onClick={next_slide}/>
