@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function NavBar() {
   return (
     <header className="container mx-auto flex justify-between items-center text-black">
