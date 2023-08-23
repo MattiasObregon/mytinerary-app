@@ -7,7 +7,8 @@ export default function Display({ options }) {
             <Anchor
               key={each.to}
               to={each.to}
-              className={`flex items-center font-bold text-lg ${each.title === 'Login' ? 'text-white bg-blue-600 rounded-md px-4 py-2' : 'text-black'}`}
+              className={`flex items-center font-bold text-lg 
+              ${each.title === 'Login' ? 'text-white bg-indigo-600 rounded-md px-4 py-2' : 'text-black'}`}
             >
               {each.title === 'Login' && (
                 <>
