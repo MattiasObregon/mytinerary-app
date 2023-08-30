@@ -8,7 +8,7 @@ export default function NavBar() {
   let options = [
     {to: "/", title: "Home"},
     {to: "/cities", title: "Cities"},
-    {to: "/Login", title: "Login"},
+    {to: "/auth/signin", title: "Login"},
   ]
 
   const toggleMenu = () => {
