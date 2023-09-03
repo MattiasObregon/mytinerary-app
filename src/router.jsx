@@ -20,7 +20,6 @@ const router = createBrowserRouter([
             { path: '/index', element: <Home /> },
             { path: '/home', element: <Home /> },
             { path: '/cities', element: <Cities /> },
-            { path: '/city/:city_id', element: <CityDetail /> },
             { path: '/*', element: <NotFound /> }
         ]
       },
@@ -29,7 +28,8 @@ const router = createBrowserRouter([
         element: <LoginLayout />,
         children: [
             { path: '/auth/signin', element: <SignIn /> },
-            { path: '/auth/signup', element: <SignUp /> }
+            { path: '/auth/signup', element: <SignUp /> },
+            { path: '/city/:city_id', element: <CityDetail /> }
         ]
       }
     ]
