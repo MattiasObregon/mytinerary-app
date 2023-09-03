@@ -1,34 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import apiUrl from '../apiUrl';
-import CardCity from '../components/CardCity';
-import Search from '../components/Search';
-import NotFound from './NotFound';
-import Footer from '../components/Footer';
+import React, { useState, useEffect, useRef } from 'react'
+import CardCity from '../components/CardCity'
+import Search from '../components/Search'
+import NotFound from './NotFound'
+import Footer from '../components/Footer'
+import city_actions from '../store/actions/cities'
+import { useSelector, useDispatch } from 'react-redux'
+const { read_cities } = city_actions
 
 export default function Cities() {
-  const [cities, setCities] = useState(null);
+  
+  const cities = useSelector( store => store.cities.cities )
+  const dispatch = useDispatch()
+
   const [reEffect, setReEffect] = useState(true);
-  const text = useRef();
+  const text = useRef()
 
   useEffect(() => {
-    const searchCity = text.current.value
-        .toLowerCase()
-        .trim();
-    axios(apiUrl + 'cities')
-      .then(res => {
-        const filteredCities = res.data.response.filter(city =>
-          city.city.toLowerCase().startsWith(searchCity)
-        );
-        setCities(filteredCities);
-      })
-      .catch(err => console.log(err));
+    dispatch(read_cities({text: text.current?.value}));
   }, [reEffect]);
 
   function handleFilter() {
-    console.log(text.current.value);
     setReEffect(!reEffect);
   }
+
 
   return (
     <div className=" flex flex-col items-center">
