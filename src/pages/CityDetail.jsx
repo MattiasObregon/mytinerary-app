@@ -58,7 +58,7 @@ export default function CityDetail() {
         {show && (
           <div className="mt-4 container">
             {itineraries.length === 0 ? (
-              <p>No hay itinerarios</p>
+              <p>There aren't itineraries</p>
             ) : (
               itineraries.map((itinerary, index) => (
                 <div key={index} className="flex flex-col items-center mt-2 border bg-white rounded-md p-4">
