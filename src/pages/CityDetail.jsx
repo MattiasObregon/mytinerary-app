@@ -44,7 +44,7 @@ export default function CityDetail() {
     >
       <div className="absolute top-0 w-full h-full bg-black opacity-50"></div>
       <div className="absolute top-0 w-full">
-        <div className="pt-10 md:pt-20 lg:pt-[32px] md:pr-10 lg:pr-[218px] md:pl-10 lg:pl-[219px]"> <NavBar/> </div>
+        <div className="pt-10 md:pt-20 lg:pt-[32px] md:pr-10 lg:pr-[218px] md:pl-10 lg:pl-[219px]"> <NavBar /> </div>
       </div>
       <div className="relative z-10 text-white text-center mt-[100px]">
         <h1 className="text-[60px] font-bold">{city.city}</h1>
@@ -76,27 +76,34 @@ export default function CityDetail() {
                     <div className="mt-2 flex text-black">
                       <div className="mr-[100px]">
                         <p>User: </p>
-                        <img 
+                        <img
                           src={itinerary.city_id.admin_id.photo}
                           alt={itinerary.city_id.admin_id.name}
                           className="w-[100px] h-[100px] object-cover rounded-full"
-                        />                    
-                        <p className="text-gray-500">{itinerary.city_id.admin_id.name}</p>                      
+                        />
+                        <p className="text-gray-500">{itinerary.city_id.admin_id.name}</p>
                       </div>
 
                       <div className="text-black ml-[70px] mr-[80px]">
                         <p>Hashtags:</p>
                         <div className="flex flex-col items-start">
-                            {itinerary.tags.map((tag, tagIndex) => (
-                              <p key={tagIndex} className="text-gray-500">{tag}</p>
+                          {itinerary.tags.map((tag, tagIndex) => (
+                            <p key={tagIndex} className="text-gray-500">{tag}</p>
                           ))}
                         </div>
                       </div>
 
                       <div className="text-black mx-[60px]">
                         <p>Duration:</p>
-                        <p className="text-gray-500">{itinerary.duration} minutes</p>
+                        <p className="text-gray-500">
+                          {itinerary.duration % 60 === 0 ? (
+                            `${Math.floor(itinerary.duration / 60)} hours`
+                          ) : (
+                            `${Math.floor(itinerary.duration / 60)} hours ${itinerary.duration % 60} minutes`
+                          )}
+                        </p>
                       </div>
+
 
                       <div className="text-black ml-[40px]">
                         <p>Price:</p>
@@ -122,7 +129,7 @@ export default function CityDetail() {
             )}
           </div>
         )}
-        
+
       </div>
     </div>
   );
