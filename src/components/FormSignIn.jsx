@@ -1,23 +1,26 @@
-import { useRef } from "react";
-import { Link as Anchor } from "react-router-dom";
-import axios from "axios";
-import apiUrl from "../apiUrl";
+import { useRef } from "react"
+import { Link as Anchor } from "react-router-dom"
+
+
+import { useDispatch, useSelector } from "react-redux";
+import user_actions from "../store/actions/users";
+const { signin } = user_actions;
 
 export default function FormSignIn() {
-  const mail = useRef();
-  const password = useRef();
+  const mail = useRef("")
+  const password = useRef("")
+  const dispatch = useDispatch()
 
   async function handleSignin() {
-    try {
       let data = {
         mail: mail.current.value,
         password: password.current.value,
-      };
-      await axios.post(apiUrl + "users/signin", data);
-    } catch (error) {
-      console.log(error);
-    }
+      }
+      dispatch(signin({data}))
   }
+
+  let user = useSelector(store=>store)
+  console.log(user)
 
   return (
     <div className="flex items-center justify-center">
