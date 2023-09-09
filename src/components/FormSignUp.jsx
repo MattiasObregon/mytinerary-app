@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import { Link as Anchor } from "react-router-dom";
-import axios from "axios";
-import apiUrl from "../apiUrl";
+import { useRef } from "react"
+import { Link as Anchor } from "react-router-dom"
+import axios from "axios"
+import apiUrl from "../apiUrl"
 
 export default function FormSignUp() {
   const name = useRef();

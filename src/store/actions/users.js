@@ -34,7 +34,8 @@ const signin = createAsyncThunk(
             console.log(error);
             return {
                 user: {},
-                token: ''
+                token: '',
+                messages: error.response.data.messages || [error.response.data.message]
             }
         }
     }
