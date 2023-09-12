@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItineraryArrowDown from "../components/ItineraryArrowDown";
 import ItineraryArrowUp from "../components/ItineraryArrowUp";
-import footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import city_action from "../store/actions/cities";
 import itinerary_action from "../store/actions/itineraries";
+import Activity from "../components/Activity";
 
 const { read_city } = city_action;
 const { read_itineraries_from_city } = itinerary_action;
@@ -14,23 +14,32 @@ const { read_itineraries_from_city } = itinerary_action;
 export default function CityDetail() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
   const [showDetails, setShowDetails] = useState({});
+  const [showActivity, setShowActivity] = useState(Array(0).fill(false))
   const { city_id } = useParams();
   const city = useSelector((store) => store.cities.city);
   const itineraries = useSelector((store) => store.itineraries.itineraries_from_city);
 
   useEffect(() => {
     dispatch(read_city({ id: city_id }));
-    dispatch(read_itineraries_from_city({ city_id: city_id }));
-  }, [dispatch, city_id]);
+    dispatch(read_itineraries_from_city({ city_id: city_id }))
+    setShowActivity(Array(itineraries.length).fill(false))
+  }, [city_id, itineraries.length])
 
-  // Funcion para alternar los detalles del itinerario cuando se hace clic en el boton correspondiente
+  // funcion para alternar los detalles del itinerario cuando se hace clic en el boton correspondiente
   const toggleDetails = (index) => {
     setShowDetails((prevShowDetails) => ({
       ...prevShowDetails,
       [index]: !prevShowDetails[index],
     }));
+  };
+
+  const toggleActivity = (index) => {
+    setShowActivity((prevShowActivity) => {
+      const updatedShowActivity = [...prevShowActivity];
+      updatedShowActivity[index] = !updatedShowActivity[index];
+      return updatedShowActivity;
+    });
   };
 
   return (
@@ -55,6 +64,7 @@ export default function CityDetail() {
         >
           {show ? "Hide Itineraries ↑" : "View Itineraries ↓"}
         </button>
+
         {show && (
           <div className="mt-4 container">
             {itineraries.length === 0 ? (
@@ -104,7 +114,6 @@ export default function CityDetail() {
                         </p>
                       </div>
 
-
                       <div className="text-black ml-[40px]">
                         <p>Price:</p>
                         <p className="text-gray-500">{itinerary.price}</p>
@@ -112,25 +121,21 @@ export default function CityDetail() {
                     </div>
                   )}
 
-                  <div>
-                    <button
-                      onClick={() => setShow2(!show2)}
-                      className="mt-4 bg-indigo-600 text-white px-3 py-1 rounded-md"
-                    >
-                      {show2 ? "Hide Comments ↑" : "View Comments ↓"}
-                    </button>
-                    {show2 ? (
-                      <p className="text-black">Activities and comments under construction</p>
-                    ) : null}
-                  </div>
+                  <button onClick={() => toggleActivity(index)} className="mt-4 bg-indigo-600 text-white px-3 py-1 rounded-md">
+                    {showActivity[index] ? "Hide Activity ↑" : "View Activity ↓"}
+                  </button>
 
+                  {showActivity[index] && (
+                    <div>
+                      <Activity itinerary_id={itinerary._id} />
+                    </div>
+                  )}
                 </div>
               ))
             )}
           </div>
         )}
-
       </div>
     </div>
-  );
+  )
 }
